@@ -43,7 +43,7 @@ class Database:
  
     def executar(self, sql: str, params:Optional[Tuple[Any, ...]] = None) -> Optional[List[dict]]:
         """Executa uma instrução no banco de dados."""
-        if self.connection is None and self.cursor is None:
+        if self.connection is None or self.cursor is None:
             print('Conexão não estabelecida!')
             return None
        

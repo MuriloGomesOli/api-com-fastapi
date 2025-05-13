@@ -1,6 +1,8 @@
+CREATE DATABASE  IF NOT EXISTS `must_watch` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `must_watch`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: must_watch
+-- Host: localhost    Database: must_watch
 -- ------------------------------------------------------
 -- Server version	8.0.35
 
@@ -26,7 +28,7 @@ CREATE TABLE `ator` (
   `id_ator` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   PRIMARY KEY (`id_ator`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,6 +37,7 @@ CREATE TABLE `ator` (
 
 LOCK TABLES `ator` WRITE;
 /*!40000 ALTER TABLE `ator` DISABLE KEYS */;
+INSERT INTO `ator` VALUES (1,'Maicon'),(2,'Tom Hemsworth'),(3,'Tom Hemsworth'),(4,'Tom Hemsworth');
 /*!40000 ALTER TABLE `ator` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,9 +53,7 @@ CREATE TABLE `ator_serie` (
   `id_serie` int NOT NULL,
   `personagem` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_ator`,`id_serie`),
-  KEY `id_serie` (`id_serie`),
-  CONSTRAINT `ator_serie_ibfk_1` FOREIGN KEY (`id_ator`) REFERENCES `ator` (`id_ator`),
-  CONSTRAINT `ator_serie_ibfk_2` FOREIGN KEY (`id_serie`) REFERENCES `serie` (`id_serie`)
+  CONSTRAINT `ator_serie_ibfk_1` FOREIGN KEY (`id_ator`) REFERENCES `ator` (`id_ator`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -79,8 +80,8 @@ CREATE TABLE `avaliacao_serie` (
   `comentario` mediumtext,
   `data_avaliacao` date DEFAULT NULL,
   PRIMARY KEY (`id_avaliacao`),
-  KEY `fk_id_serie_idx` (`id_serie`),
-  CONSTRAINT `fk_id_serie_avaliacao` FOREIGN KEY (`id_serie`) REFERENCES `serie` (`id_serie`)
+  KEY `fk_avaliacao_serie_idx` (`id_serie`),
+  CONSTRAINT `fk_avaliacao_serie` FOREIGN KEY (`id_serie`) REFERENCES `serie` (`id_serie`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -104,7 +105,7 @@ CREATE TABLE `categoria` (
   `id_categoria` int NOT NULL AUTO_INCREMENT,
   `categoria_nome` varchar(50) NOT NULL,
   PRIMARY KEY (`id_categoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,6 +114,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT INTO `categoria` VALUES (1,'ação');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,8 +130,8 @@ CREATE TABLE `motivo_assistir` (
   `id_serie` int NOT NULL,
   `motivo` mediumtext,
   PRIMARY KEY (`id_motivo`),
-  KEY `fk_id_serie_idx` (`id_serie`),
-  CONSTRAINT `fk_id_serie` FOREIGN KEY (`id_serie`) REFERENCES `serie` (`id_serie`)
+  KEY `fk_motivo_assisitr_idx` (`id_serie`),
+  CONSTRAINT `fk_motivo_assisitr` FOREIGN KEY (`id_serie`) REFERENCES `serie` (`id_serie`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -150,7 +152,7 @@ DROP TABLE IF EXISTS `serie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `serie` (
-  `id_serie` int NOT NULL,
+  `id_serie` int NOT NULL AUTO_INCREMENT,
   `titulo` varchar(100) NOT NULL,
   `descricao` mediumtext,
   `ano_lancamento` int DEFAULT NULL,
@@ -158,7 +160,7 @@ CREATE TABLE `serie` (
   PRIMARY KEY (`id_serie`),
   KEY `fk_id_categoria_idx` (`id_categoria`),
   CONSTRAINT `fk_id_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,6 +169,7 @@ CREATE TABLE `serie` (
 
 LOCK TABLES `serie` WRITE;
 /*!40000 ALTER TABLE `serie` DISABLE KEYS */;
+INSERT INTO `serie` VALUES (1,'la casa de papel','é legal tgyhujiuhgyhuhyguuhyuuhhuuhdhufhuhudhuhufuhfdhufduh',1232,1);
 /*!40000 ALTER TABLE `serie` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -179,4 +182,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-05 14:01:05
+-- Dump completed on 2025-05-13  9:31:46
