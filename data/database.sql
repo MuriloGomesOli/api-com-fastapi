@@ -28,7 +28,7 @@ CREATE TABLE `ator` (
   `id_ator` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   PRIMARY KEY (`id_ator`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `ator` (
 
 LOCK TABLES `ator` WRITE;
 /*!40000 ALTER TABLE `ator` DISABLE KEYS */;
-INSERT INTO `ator` VALUES (1,'Maicon'),(2,'Tom Hemsworth'),(3,'Tom Hemsworth'),(4,'Tom Hemsworth');
+INSERT INTO `ator` VALUES (1,'Maicon'),(2,'Tom Hemsworth'),(3,'Tom Hemsworth'),(4,'Tom Hemsworth'),(5,'Cauã Reimond'),(6,'Toby Maguire');
 /*!40000 ALTER TABLE `ator` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,11 +78,11 @@ CREATE TABLE `avaliacao_serie` (
   `id_serie` int NOT NULL,
   `nota` int DEFAULT NULL,
   `comentario` mediumtext,
-  `data_avaliacao` date DEFAULT NULL,
+  `data_avaliacao` datetime NOT NULL,
   PRIMARY KEY (`id_avaliacao`),
   KEY `fk_avaliacao_serie_idx` (`id_serie`),
   CONSTRAINT `fk_avaliacao_serie` FOREIGN KEY (`id_serie`) REFERENCES `serie` (`id_serie`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,6 +91,7 @@ CREATE TABLE `avaliacao_serie` (
 
 LOCK TABLES `avaliacao_serie` WRITE;
 /*!40000 ALTER TABLE `avaliacao_serie` DISABLE KEYS */;
+INSERT INTO `avaliacao_serie` VALUES (3,1,10,'foi top','2025-05-13 10:45:59'),(4,2,9,'foi regular','2025-05-13 11:22:54');
 /*!40000 ALTER TABLE `avaliacao_serie` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,7 +106,7 @@ CREATE TABLE `categoria` (
   `id_categoria` int NOT NULL AUTO_INCREMENT,
   `categoria_nome` varchar(50) NOT NULL,
   PRIMARY KEY (`id_categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,7 +115,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'ação');
+INSERT INTO `categoria` VALUES (1,'ação'),(2,'comédia'),(3,'comédia'),(4,'levir'),(5,'comédia'),(6,'felicidade'),(7,'cafezinho'),(9,'terror');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,7 +161,7 @@ CREATE TABLE `serie` (
   PRIMARY KEY (`id_serie`),
   KEY `fk_id_categoria_idx` (`id_categoria`),
   CONSTRAINT `fk_id_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,7 +170,7 @@ CREATE TABLE `serie` (
 
 LOCK TABLES `serie` WRITE;
 /*!40000 ALTER TABLE `serie` DISABLE KEYS */;
-INSERT INTO `serie` VALUES (1,'la casa de papel','é legal tgyhujiuhgyhuhyguuhyuuhhuuhdhufhuhudhuhufuhfdhufduh',1232,1);
+INSERT INTO `serie` VALUES (1,'la casa de papel','é legal tgyhujiuhgyhuhyguuhyuuhhuuhdhufhuhudhuhufuhfdhufduh',1232,1),(2,'stranger things','mundo reverso',2019,1),(3,'Stranger Things','Uma serie sobre o mundo reverso',2019,1),(4,'Stranger Things','Uma serie sobre o mundo reverso',2019,1),(5,'Stranger Things','Uma serie sobre o mundo reverso',2019,1),(6,'Stranger Things','Uma serie sobre o mundo reverso',2019,1),(7,'Stranger Things','Uma serie sobre o mundo reverso',2019,1),(8,'Stranger Things','Uma serie sobre o mundo reverso',2019,1),(9,'Stranger Things','Uma serie sobre o mundo reverso',2019,1),(10,'Stranger Things','Uma serie sobre o mundo reverso',2019,1),(11,'Stranger Things','Uma serie sobre o mundo',2019,1),(12,'Lobo de wall streat','Economia',2008,2);
 /*!40000 ALTER TABLE `serie` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -182,4 +183,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-13  9:31:46
+-- Dump completed on 2025-05-13 16:36:40
