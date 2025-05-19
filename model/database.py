@@ -84,7 +84,11 @@ PRIMARY_KEYS = {
     'motivo_assistir': 'id_motivo',
     'avaliacao_serie': 'id_avaliacao'
 }
-
+def executar_com_conexao(funcao, *args, **kwargs):
+    db.conectar()
+    resultado = funcao(*args, **kwargs)
+    db.desconectar()
+    return resultado
 
     
 db = Database()

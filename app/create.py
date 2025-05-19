@@ -19,7 +19,7 @@ def create_item(table_name: str, item: dict):
         # Caso especial para avaliacao_serie com NOW()
         if table_name == 'avaliacao_serie':
             colunas += ', data_avaliacao'
-            placeholders += ', NOW()'
+            marcador += ', NOW()'
 
         sql = f"INSERT INTO {table_name} ({colunas}) VALUES ({marcador})"
         params = tuple(item[colunas] for colunas in columns)
