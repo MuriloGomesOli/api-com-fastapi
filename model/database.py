@@ -68,6 +68,24 @@ class Database:
         except Error as e:
             print(f'Erro de consulta: {e}')
             return None
+        
+TABELAS = {
+    'serie': ['titulo', 'descricao', 'ano_lancamento', 'id_categoria'],
+    'categoria': ['categoria_nome'],
+    'ator': ['nome'],
+    'motivo_assistir': ['id_serie', 'motivo'],
+    'avaliacao_serie': ['id_serie', 'nota', 'comentario']
+}
+
+PRIMARY_KEYS = {
+    'serie': 'id_serie',
+    'categoria': 'id_categoria',
+    'ator': 'id_ator',
+    'motivo_assistir': 'id_motivo',
+    'avaliacao_serie': 'id_avaliacao'
+}
+
+
     
 db = Database()
 db.conectar()

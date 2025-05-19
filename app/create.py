@@ -1,36 +1,34 @@
 from fastapi import HTTPException
-from model.database import Database # importa a classe Database do arquivo model/database.py
- 
+from model.database import Database, TABELAS
+
 db = Database()
+
 
 def create_item(table_name: str, item: dict):
     '''Adiciona um item a uma tabela específica no banco de dados'''
     db.conectar()
- 
-    try:
-        if table_name == 'serie':
-            sql = "INSERT INTO serie (titulo, descricao, ano_lancamento, id_categoria) VALUES ( %s, %s, %s, %s)"
-            params = (item['titulo'], item['descricao'], item['ano_lancamento'], item['id_categoria'])
-        elif table_name == 'categoria':
-            sql = "INSERT INTO categoria (categoria_nome) VALUES (%s)"
-            params = (item['categoria_nome'],)
-        elif table_name == 'ator':
-            sql = "INSERT INTO ator (nome) VALUES (%s)"
-            params = (item['nome'],)
-        elif table_name == 'motivo_assistir':
-            sql = "INSERT INTO motivo_assistir (id_serie, motivo) VALUES (%s, %s)"
-            params = (item['id_serie'], item['motivo'])
-        elif table_name == 'avaliacao_serie':
-            sql = "INSERT INTO avaliacao_serie (id_serie, nota, comentario, data_avaliacao) VALUES (%s, %s, %s, NOW())"
-            params = (item['id_serie'], item['nota'], item['comentario']) 
 
-        else:
+    try:
+        if table_name not in TABELAS:
             raise HTTPException(status_code=400, detail="Tabela não permitida")
- 
+
+        columns = TABELAS[table_name]
+        col_str = ', '.join(columns)
+        placeholders = ', '.join(['%s'] * len(columns))
+
+        # Caso especial para avaliacao_serie com NOW()
+        if table_name == 'avaliacao_serie':
+            col_str += ', data_avaliacao'
+            placeholders += ', NOW()'
+
+        sql = f"INSERT INTO {table_name} ({col_str}) VALUES ({placeholders})"
+        params = tuple(item[col] for col in columns)
+
         db.executar(sql, params)
         db.desconectar()
 
         return {"message": "Item adicionado com sucesso!"}
+
     except Exception as e:
         db.desconectar()
         raise HTTPException(status_code=500, detail=f"Erro ao adicionar o item: {str(e)}")
