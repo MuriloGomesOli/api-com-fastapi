@@ -3,6 +3,9 @@ from mysql.connector import Error, MySQLConnection
 from dotenv import load_dotenv
 from os import getenv
 from typing import Optional, Any, Tuple, List, Union
+from pydantic import BaseModel
+
+
 
 class Database:
     def __init__(self) -> None:  
@@ -69,6 +72,14 @@ class Database:
             print(f'Erro de consulta: {e}')
             return None
         
+    def select(self, query):
+        try:
+            self.cursor.execute(query)
+            return self.cursor.fetchall()
+        except Error as e:
+            print(f'erro: {e}')
+            return None
+        
 TABELAS = {
     'serie': ['titulo', 'descricao', 'ano_lancamento', 'id_categoria'],
     'categoria': ['categoria_nome'],
@@ -84,11 +95,15 @@ PRIMARY_KEYS = {
     'motivo_assistir': 'id_motivo',
     'avaliacao_serie': 'id_avaliacao'
 }
-def executar_com_conexao(funcao, *args, **kwargs):
-    db.conectar()
-    resultado = funcao(*args, **kwargs)
-    db.desconectar()
-    return resultado
+
+
+class Ator_serie(BaseModel):
+
+    nome_ator:str
+    titulo: str
+    personagem: str
+
+
 
     
 db = Database()
