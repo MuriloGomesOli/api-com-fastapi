@@ -17,6 +17,15 @@ class Database:
         self.connection: Optional[MySQLConnection] = None
         self.cursor: Optional[Union[List[dict], None]] = None # Incialização do cursor 
 
+    def __enter__(self):
+        self.conectar()
+        return self
+    
+    def __exit__(self, exc_type: Optional[Any],exc_value: Optional[Any], exc_tb: Optional[Any]):
+        self.desconectar()
+        if exc_type is not None:
+            print(f'Erro: {exc_value}')
+
     def conectar(self) -> None:
         """Estabele uma conexão com o banco de dados."""
         try:
@@ -80,20 +89,25 @@ class Database:
             print(f'erro: {e}')
             return None
         
-TABELAS = {
-    'serie': ['titulo', 'descricao', 'ano_lancamento', 'id_categoria'],
-    'categoria': ['categoria_nome'],
-    'ator': ['nome'],
-    'motivo_assistir': ['id_serie', 'motivo'],
-    'avaliacao_serie': ['id_serie', 'nota', 'comentario']
-}
 
-PRIMARY_KEYS = {
-    'serie': 'id_serie',
-    'categoria': 'id_categoria',
-    'ator': 'id_ator',
-    'motivo_assistir': 'id_motivo',
-    'avaliacao_serie': 'id_avaliacao'
+
+
+class table:
+        TABELAS = {
+        'serie': ['titulo', 'descricao', 'ano_lancamento', 'id_categoria'],
+        'categoria': ['nome_categoria'],
+        'ator': ['nome', 'ano_nasc'],
+        'motivo_assistir': ['id_serie', 'motivo'],
+        'avaliacao_serie': ['id_serie', 'nota', 'comentario'],
+        'ator_serie': ['personagem']
+}
+        PRIMARY_KEYS = {
+        'serie': 'id_serie',
+        'categoria': 'id_categoria',
+        'ator': 'id_autor',
+        'motivo_assistir': 'id_motivo_assistir',
+        'avaliacao_serie': 'id_avaliacao',
+        'ator_serie': 'id_ator'
 }
 
 
