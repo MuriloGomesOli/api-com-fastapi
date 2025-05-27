@@ -6,3 +6,4 @@ __pycache__/
 .vscode/
 
 # Variáveis de ambiente
+.env

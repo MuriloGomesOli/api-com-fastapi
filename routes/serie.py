@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from model.database import Database, PRIMARY_KEYS # importa a classe Database do arquivo model/database.py
+from model.database import Database 
 from app.update import update_item
 from app.delete import delete_item
 from app.create import create_item, criar_ator_serie

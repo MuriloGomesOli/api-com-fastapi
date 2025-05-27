@@ -1,6 +1,6 @@
 from typing import Union 
 from fastapi import FastAPI
-from model.database import Database, PRIMARY_KEYS
+from model.database import Database
 from routes import serie
  
 app = FastAPI() # instancia a aplicação
